@@ -1,10 +1,6 @@
 # JetKai Mono
 
-JetBrains Mono Nerd Font + LXGW WenKai Mono KR: a monospace coding font where Korean, Japanese
-and Chinese characters are exactly two cells wide.
-
-한글·일본어·중국어를 모두 지원하는 2:1 고정폭 코딩 폰트입니다. 라틴 문자와 Nerd 아이콘은
-JetBrains Mono, 한글·한자·가나는 LXGW 문해(WenKai) Mono KR에서 가져옵니다.
+JetBrains Mono Nerd Font + LXGW WenKai Mono KR: a monospace coding font where CJK characters are exactly two cells wide.
 
 ![preview](docs/preview.png)
 
