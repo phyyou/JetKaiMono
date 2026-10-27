@@ -31,6 +31,19 @@ Two families are built, each in eight styles:
 
 WenKai strokes are thinner than JetBrains Mono's, so each style uses the next heavier WenKai weight.
 
+## Install
+
+Download `JetKaiMono-*.zip` (ligatures) or `JetKaiMonoNL-*.zip` (no ligatures) from
+[Releases](https://github.com/phyyou/JetKaiMono/releases) and unzip it.
+
+- **macOS:** copy the `.ttf` files to `~/Library/Fonts`, or open them and click Install in Font Book
+- **Windows:** select the `.ttf` files, right-click, and choose Install for all users
+- **Linux:** copy the `.ttf` files to `~/.local/share/fonts` and run `fc-cache -f`
+
+Then set the font family to `JetKai Mono` (or `JetKai Mono NL`). In VS Code, ligatures also need
+`"editor.fontLigatures": true`. [`docs/testing.md`](docs/testing.md) lists what to check in a
+terminal and an editor.
+
 ## Width rules
 
 Terminals decide how many cells a character takes from Unicode East Asian Width, so the font
@@ -55,6 +68,7 @@ uv sync
 uv run jetkai fetch      # download the pinned sources into sources/ (sha256-checked, ~200 MB)
 uv run jetkai build      # build all fonts into output/ttf and verify them
 uv run jetkai preview    # render PNG specimens into output/preview
+uv run jetkai package    # zip each family into output/dist for a release
 ```
 
 A full build of 16 fonts takes about two minutes with six jobs. Useful options:
@@ -70,6 +84,21 @@ and prints a coverage table.
 
 Everything else lives in [`config.yaml`](config.yaml): source URLs and hashes, styles, the CJK
 weight per style, layer order, imported Unicode ranges, and the CJK scale and vertical centre.
+
+### Releasing
+
+`uv run jetkai package` zips each family into `output/dist` with a `SHA256SUMS` file.
+The [release workflow](.github/workflows/release.yml) does the whole build in GitHub Actions:
+
+1. Set `font.version` in `config.yaml` (and `version` in `pyproject.toml`), commit and push.
+2. Tag the commit with the same version and push the tag:
+
+   ```bash
+   git tag v0.1.0 && git push origin v0.1.0
+   ```
+
+The workflow fails if the tag and `font.version` disagree. Running it manually from the Actions
+tab builds the zips as workflow artifacts without publishing a release.
 
 ## Known limitations
 

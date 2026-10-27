@@ -48,6 +48,10 @@ def main(argv: list[str] | None = None) -> None:
     p = sub.add_parser("preview", help="render PNG specimens into output/preview (needs Pillow)")
     p.add_argument("fonts", nargs="*", type=Path)
 
+    p = sub.add_parser("package", help="zip built fonts per family into output/dist")
+    p.add_argument("--variants", help="comma-separated variant keys (default: all)")
+    p.add_argument("--styles", help="comma-separated style keys (default: all)")
+
     args = parser.parse_args(argv)
     config = load_config(args.config)
 
@@ -74,6 +78,12 @@ def main(argv: list[str] | None = None) -> None:
 
         for path in _built_fonts(config, args.fonts):
             print(render(path, config.output_dir / "preview" / f"{path.stem}.png"))
+    elif args.command == "package":
+        from .package import package
+
+        variants = _split(args.variants, list(config.variants), "variants")
+        styles = _split(args.styles, list(config.styles), "styles")
+        package(config, variants, styles)
 
 
 if __name__ == "__main__":
