@@ -1,0 +1,103 @@
+# JetKai Mono build configuration
+
+font:
+  version: "0.1.0"
+  author: "phyyou"
+  url: "https://github.com/phyyou/JetKaiMono"
+  description: >-
+    JetBrains Mono Nerd Font Mono for Latin and icons, LXGW WenKai Mono KR for
+    Hangul, Hanja and kana, LXGW WenKai Mono for the remaining Han characters.
+    CJK glyphs are exactly two cells wide.
+
+# Downloaded sources (`jetkai fetch`). Every file is pinned by sha256.
+sources_dir: "sources"
+sources:
+  - dest: "jetbrains-mono-nerd"
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/JetBrainsMono.tar.xz"
+    sha256: "04d5e8f903693f9dd13e16f867e994834e681eb3c72c0d337a770dcda09010cf"
+    extract:
+      - "JetBrainsMonoNerdFontMono-*.ttf"
+      - "JetBrainsMonoNLNerdFontMono-*.ttf"
+      - "OFL.txt"
+  - dest: "wenkai-kr"
+    url: "https://github.com/lxgw/LxgwWenkaiKR/releases/download/v0.902/LXGWWenKaiMonoKR-Light.ttf"
+    sha256: "17e810a290488a1c76d6abf0094a804df7505cf42bd82aa2114273602619ad54"
+  - dest: "wenkai-kr"
+    url: "https://github.com/lxgw/LxgwWenkaiKR/releases/download/v0.902/LXGWWenKaiMonoKR-Regular.ttf"
+    sha256: "14cfd38939742552429311ee6d3c8c563bd5e81a5b07ec43c96b7f77b16b546a"
+  - dest: "wenkai-kr"
+    url: "https://github.com/lxgw/LxgwWenkaiKR/releases/download/v0.902/LXGWWenKaiMonoKR-Medium.ttf"
+    sha256: "87dfa4421e9dd50a7a4ccacae11e6e6dab2d46b8ca246b74916f876f5db8806b"
+  - dest: "wenkai"
+    url: "https://github.com/lxgw/LxgwWenKai/releases/download/v1.530/LXGWWenKaiMono-Light.ttf"
+    sha256: "b3144f534329d6b17188967d3843fb479cef1aa59949e976186d2d6015e3bc01"
+  - dest: "wenkai"
+    url: "https://github.com/lxgw/LxgwWenKai/releases/download/v1.530/LXGWWenKaiMono-Regular.ttf"
+    sha256: "895ce1d2fa00d5ca3bec0329d38e3190454f4b5fa7b4733f491c419faf9753a1"
+  - dest: "wenkai"
+    url: "https://github.com/lxgw/LxgwWenKai/releases/download/v1.530/LXGWWenKaiMono-Medium.ttf"
+    sha256: "87edc1b6e2a5a6aae1f91b0a600538f3b2924e0f69c0080b97e50cd6f8763546"
+
+# Each variant is its own font family. `{style}` is a key of `styles`.
+variants:
+  default:
+    family: "JetKai Mono"
+    base: "jetbrains-mono-nerd/JetBrainsMonoNerdFontMono-{style}.ttf"
+  nl:
+    family: "JetKai Mono NL"
+    base: "jetbrains-mono-nerd/JetBrainsMonoNLNerdFontMono-{style}.ttf"
+
+# Style -> WenKai weight used for its CJK glyphs. WenKai strokes are thinner than JetBrains Mono's,
+# so each style takes the next heavier WenKai weight. WenKai has no Bold, so Bold reuses Medium.
+styles:
+  Light: Regular
+  LightItalic: Regular
+  Regular: Medium
+  Italic: Medium
+  Medium: Medium
+  MediumItalic: Medium
+  Bold: Medium
+  BoldItalic: Medium
+
+# CJK layers in priority order: a codepoint comes from the first layer that has it.
+cjk_layers:
+  - name: "LXGW WenKai Mono KR"
+    path: "wenkai-kr/LXGWWenKaiMonoKR-{weight}.ttf"
+  - name: "LXGW WenKai Mono"
+    path: "wenkai/LXGWWenKaiMono-{weight}.ttf"
+
+# Codepoints taken from the CJK layers. Outside these, the base font is left alone.
+# Inside them, a CJK glyph also replaces a base glyph when the codepoint is East Asian Wide/Fullwidth.
+cjk_ranges:
+  - [0x1100, 0x11FF]    # Hangul Jamo
+  - [0x2E80, 0x2FDF]    # CJK Radicals Supplement, Kangxi Radicals
+  - [0x2FF0, 0x2FFF]    # Ideographic Description Characters
+  - [0x3000, 0x303F]    # CJK Symbols and Punctuation
+  - [0x3040, 0x30FF]    # Hiragana, Katakana
+  - [0x3100, 0x312F]    # Bopomofo
+  - [0x3130, 0x318F]    # Hangul Compatibility Jamo
+  - [0x3190, 0x31FF]    # Kanbun, Bopomofo Extended, CJK Strokes, Katakana Phonetic Extensions
+  - [0x3200, 0x33FF]    # Enclosed CJK Letters and Months, CJK Compatibility
+  - [0x3400, 0x4DBF]    # CJK Unified Ideographs Extension A
+  - [0x4E00, 0x9FFF]    # CJK Unified Ideographs
+  - [0xA960, 0xA97F]    # Hangul Jamo Extended-A
+  - [0xAC00, 0xD7FF]    # Hangul Syllables, Hangul Jamo Extended-B
+  - [0xF900, 0xFAFF]    # CJK Compatibility Ideographs
+  - [0xFE10, 0xFE1F]    # Vertical Forms
+  - [0xFE30, 0xFE4F]    # CJK Compatibility Forms
+  - [0xFE50, 0xFE6F]    # Small Form Variants
+  - [0xFF00, 0xFFEF]    # Halfwidth and Fullwidth Forms
+  - [0x1F200, 0x1F2FF]  # Enclosed Ideographic Supplement
+  - [0x20000, 0x3FFFF]  # CJK Unified Ideographs Extension B and later, Compatibility Supplement
+
+metrics:
+  # Advance width of one terminal cell; must match the base font.
+  cell_width: 600
+  # Size of the CJK em box relative to the base em (1.0 = same size).
+  cjk_scale: 1.08
+  # Where the centre of the CJK em box lands. 360 is the middle of JetBrains Mono's line (1020 / -300).
+  cjk_center_y: 360
+
+build:
+  output_dir: "output"
+  jobs: 4
