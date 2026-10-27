@@ -1,0 +1,34 @@
+JetKai Mono specimen. Open it in an editor or `cat` it in a terminal.
+Every | inside a block should line up vertically.
+
+[1] 2:1 alignment (each half is exactly 10 cells)
+|0123456789|abcdefghij|
+|가나다라마|바사아자차|
+|한글 mixed|中文 mixed|
+|漢字學習中|简体中文字|
+|ひらがなカ|タカナ日本|
+|ｱｲｳｴｵｶｷｸｹｺ|ﾊﾝｶｸｶﾅ1234|
+|ＡＢＣ１２|「」、。？|
+|﹢﹣﹤﹥﹦|〈〉《》【|
+|㐀㒵𠮷龘鬱|大韓民國令|
+|     |󰈙 󰊢    |
+|──────────|━━━━━━━━━━|
+
+[2] Ligatures (JetKai Mono joins these; JetKai Mono NL does not)
+-> => != === !== <= >= <> :: |> <| // /* */ && || ++ -- ..= 0xFF
+
+[3] Powerline prompt
+ phyyou   main  ~/JetKaiMono 
+
+[4] Prose
+다람쥐 헌 쳇바퀴에 타고파. 키스의 고유조건은 입술끼리 만나야 하고 특별한 기술은 필요치 않다.
+いろはにほへと ちりぬるを わかよたれそ つねならむ。カタカナとひらがなと漢字。
+天地玄黄 宇宙洪荒。我能吞下玻璃而不伤身体。我能吞下玻璃而不傷身體。
+fn main() { let 이름 = "한글"; println!("{이름} → 日本語"); } // 주석
+
+[5] Ambiguous width (one or two cells depending on the terminal's ambiguous-width setting)
+± × ÷ ° → ← ↑ ↓ ① ② ③ ■ □ ● ○ ★ ☆ ※
+
+[6] Hangul normalization (macOS stores Korean file names as NFD)
+NFC: 한글 파일.txt
+NFD: 한글 파일.txt
